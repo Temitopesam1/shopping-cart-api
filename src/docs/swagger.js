@@ -1,6 +1,11 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 
-const serverUrl = process.env.SWAGGER_SERVER_URL || 'http://localhost:3000';
+const serverUrl = process.env.SWAGGER_SERVER_URL;
+
+const servers = [{ url: 'http://localhost:3000' }];
+if (serverUrl) {
+  servers.push({ url: serverUrl });
+}
 
 const options = {
   definition: {
@@ -10,9 +15,7 @@ const options = {
       version: '1.0.0',
       description: 'API documentation for the Shopping Cart system',
     },
-    servers: [
-      { url: serverUrl }
-    ],
+    servers,
   },
   apis: ['./src/routes/*.js'],
 };
