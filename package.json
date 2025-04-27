@@ -1,0 +1,35 @@
+{
+  "name": "shopping-cart-api",
+  "version": "1.0.0",
+  "description": "This is a shopping cart system API where multiple users can purchase products from a shared inventory. The system performs efficiently at scale.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/app.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Temitopesam1/shopping-cart-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Temitopesam1/shopping-cart-api/issues"
+  },
+  "homepage": "https://github.com/Temitopesam1/shopping-cart-api#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "mongoose": "^8.13.3",
+    "redis": "^4.7.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.0"
+  }
+}
