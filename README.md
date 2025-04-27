@@ -31,19 +31,14 @@ This is a shopping cart system API where multiple users can purchase products fr
 
 5. **Start the server**
    ```
-   npm run dev
+   npm run start
    ```
    or
    ```
-   node src/app.js
+   npm run main
    ```
 
-6. **Run automated tests**
-   ```
-   npm test
-   ```
-
-7. **Access API documentation**
+6. **Access API documentation**
    - Visit [https://shopping-cart-api-qb7x.onrender.com/api-docs](https://shopping-cart-api-qb7x.onrender.com/api-docs) for Swagger UI.
 
 ## API Endpoints
@@ -64,6 +59,18 @@ This is a shopping cart system API where multiple users can purchase products fr
 - `POST /api/carts/:userId/remove` — Remove item from cart
 - `POST /api/carts/:userId/clear` — Clear cart
 - `POST /api/carts/:userId/checkout` — Checkout
+
+## Assumptions
+
+- Each product is uniquely identified by its `name`. Duplicate product names are not allowed.
+- Users are identified by a unique `userId` string (no authentication implemented).
+- Product stock is decremented only at checkout, not when items are added to the cart.
+- If a product is out of stock at checkout, the checkout will fail and no stock will be deducted.
+- Cart operations (add, remove, clear) do not validate product stock until checkout.
+- All API requests are assumed to be trusted (authentication/authorization can be added as an enhancement).
+- The API is stateless; all cart and product data is stored in MongoDB.
+- Redis is used only for caching product reads, not for cart or transactional data.
+- The system is designed for demonstration and interview purposes, not for production use.
 
 ## Example API Usage
 
