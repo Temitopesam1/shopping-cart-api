@@ -44,7 +44,7 @@ This is a shopping cart system API where multiple users can purchase products fr
    ```
 
 7. **Access API documentation**
-   - Visit [http://localhost:3000/api-docs](http://localhost:3000/api-docs) for Swagger UI.
+   - Visit [https://shopping-cart-api-qb7x.onrender.com/api-docs](https://shopping-cart-api-qb7x.onrender.com/api-docs) for Swagger UI.
 
 ## API Endpoints
 
@@ -95,4 +95,4 @@ POST /api/carts/user123/checkout
 - Replace `<PRODUCT_ID>` with the actual product ID from your database.
 - All endpoints require valid input as described above.
 - For security, all input is validated and sanitized to prevent injection attacks.
-- See [http://localhost:3000/api-docs](http://localhost:3000/api-docs) for full API documentation.
+- See [https://shopping-cart-api-qb7x.onrender.com/api-docs](https://shopping-cart-api-qb7x.onrender.com/api-docs) for full API documentation.
