@@ -49,6 +49,42 @@ const router = express.Router();
  *       200:
  *         description: Item added to cart
  *
+ * /api/carts/{userId}/add-multiple:
+ *   post:
+ *     summary: Add multiple items to cart
+ *     tags: [Carts]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - items
+ *             properties:
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - productId
+ *                     - quantity
+ *                   properties:
+ *                     productId:
+ *                       type: string
+ *                     quantity:
+ *                       type: integer
+ *     responses:
+ *       200:
+ *         description: Items added to cart
+ * 
  * /api/carts/{userId}/remove:
  *   post:
  *     summary: Remove item from cart
@@ -106,6 +142,7 @@ const router = express.Router();
  *         description: Checkout successful
  *       400:
  *         description: Insufficient stock or cart empty
+ *
  */
 
 // Validation middleware
@@ -143,9 +180,23 @@ const validateRemoveFromCart = [
   }
 ];
 
+const validateAddMultipleToCart = [
+  body('items').isArray({ min: 1 }),
+  body('items.*.productId').isMongoId(),
+  body('items.*.quantity').isInt({ min: 1 }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  }
+];
+
 // All routes use :userId as a path parameter
 router.get('/:userId', validateUserId, cartController.getCart);
 router.post('/:userId/add', validateUserId.concat(validateAddToCart), cartController.addToCart);
+router.post('/:userId/add-multiple', validateUserId.concat(validateAddMultipleToCart), cartController.addMultipleToCart);
 router.post('/:userId/remove', validateUserId.concat(validateRemoveFromCart), cartController.removeFromCart);
 router.post('/:userId/clear', validateUserId, cartController.clearCart);
 router.post('/:userId/checkout', validateUserId, cartController.checkout);

@@ -19,6 +19,22 @@ exports.addToCart = async (userId, productId, quantity) => {
   return cart;
 };
 
+exports.addMultipleToCart = async (userId, items) => {
+  let cart = await Cart.findOne({ userId });
+  if (!cart) cart = new Cart({ userId, items: [] });
+
+  for (const { productId, quantity } of items) {
+    const itemIndex = cart.items.findIndex(item => item.product.equals(productId));
+    if (itemIndex > -1) {
+      cart.items[itemIndex].quantity += quantity;
+    } else {
+      cart.items.push({ product: productId, quantity });
+    }
+  }
+  await cart.save();
+  return cart;
+};
+
 exports.removeFromCart = async (userId, productId) => {
   const cart = await Cart.findOne({ userId });
   if (!cart) return null;

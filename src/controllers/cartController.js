@@ -20,6 +20,16 @@ exports.addToCart = async (req, res) => {
   }
 };
 
+exports.addMultipleToCart = async (req, res) => {
+  try {
+    const { items } = req.body; // [{ productId, quantity }, ...]
+    const cart = await cartService.addMultipleToCart(req.params.userId, items);
+    res.json(cart);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 exports.removeFromCart = async (req, res) => {
   try {
     const { productId } = req.body;
