@@ -2,10 +2,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 const serverUrl = process.env.SWAGGER_SERVER_URL;
 
-const servers = [{ url: 'http://localhost:3000' }];
-if (serverUrl) {
-  servers.push({ url: serverUrl });
-}
+const servers = [{ url: serverUrl }];
 
 const options = {
   definition: {
